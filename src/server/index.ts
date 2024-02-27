@@ -1,44 +1,39 @@
-/**
- * This a minimal tRPC server
- */
-import { createHTTPServer } from '@trpc/server/adapters/standalone';
-import { z } from 'zod';
-import { db } from './db.js';
+import * as trpcExpress from '@trpc/server/adapters/express';
+import express from 'express';
+import cors from 'cors';
+import { userRouter } from './routes/user.js';
 import { publicProcedure, router } from './trpc.js';
+import { z } from 'zod';
 
-const appRouter = router({
-  user: {
-    list: publicProcedure.query(async () => {
-      // Retrieve users from a datasource, this is an imaginary database
-      const users = await db.user.findMany();
-      //    ^?
-      return users;
-    }),
-    byId: publicProcedure.input(z.string()).query(async (opts) => {
-      const { input } = opts;
-      //      ^?
-      // Retrieve the user with the given ID
-      const user = await db.user.findById(input);
-      return user;
-    }),
-    create: publicProcedure
-      .input(z.object({ name: z.string() }))
-      .mutation(async (opts) => {
-        const { input } = opts;
-        //      ^?
-        // Create a new user in the database
-        const user = await db.user.create(input);
-        //    ^?
-        return user;
-      }),
-  },
+const appRouter= router({
+  user: userRouter,
+  hello: publicProcedure.input(z.string()).query((input) => `Hello, ${input}!`)
 });
 
-// Export type router type signature, this is used by the client.
 export type AppRouter = typeof appRouter;
 
-const server = createHTTPServer({
-  router: appRouter,
-});
+async function main() {
+  const app = express();
+  app.use(cors());
+  app.use(express.json());
 
-server.listen(3000);
+  app.use(
+    '/trpc',
+    trpcExpress.createExpressMiddleware({
+      router: appRouter
+    })
+  );
+
+  app.get('/', (_req, res) => {
+    res.send('hello from api!');
+  });
+
+  app.listen(3000, () => {
+    console.log('Listening on http://localhost:3000');
+  });
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
