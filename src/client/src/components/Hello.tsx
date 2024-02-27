@@ -30,7 +30,7 @@ export default function Hello() {
         onChange={(e) => setName(e.target.value)}
         className="rounded-md transition-all bg-gray-200/20 hover:bg-gray-200/40 border px-4 py-2 outline-gray-200/40 focus:outline-gray-200/60 focus:outline-2 focus:outline-offset-2"
       />
-      <button ref={animate} onClick={handleCreate} disabled={isMutating} className="rounded-md transition-colors bg-gray-200/20 hover:bg-gray-200/40 border py-2">
+      <button ref={animate} onClick={handleCreate} disabled={isMutating} className="rounded-md transition-colors bg-blue-200/20 hover:bg-blue-200/40 border py-2">
         {isMutating ? 'Creating...' : 'Create User'}
       </button>
     </div>
