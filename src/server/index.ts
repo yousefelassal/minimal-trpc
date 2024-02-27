@@ -7,7 +7,9 @@ import { z } from 'zod';
 
 const appRouter= router({
   user: userRouter,
-  hello: publicProcedure.input(z.string()).query((input) => `Hello, ${input}!`)
+  hello: publicProcedure
+    .input(z.string().nullish())
+    .query(({ input }) => `Hello, ${input}!`)
 });
 
 export type AppRouter = typeof appRouter;
