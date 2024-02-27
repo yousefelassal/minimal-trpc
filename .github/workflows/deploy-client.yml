@@ -2,7 +2,7 @@ name: Deploy Client
 on:
   push:
     paths:
-      - 'src/client/**'
+      - 'src/client/**/*'
 
 jobs:
     build:

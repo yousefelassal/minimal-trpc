@@ -2,7 +2,7 @@ name: Deploy Server
 on:
   push:
     paths:
-      - 'src/server/**'
+      - 'src/server/**/*'
 
 jobs:
     build:
