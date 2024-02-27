@@ -19,7 +19,7 @@ export default function Hello() {
   if (isLoading) return <div>Loading...</div>
 
   return (
-    <div className="container p-12 flex flex-col gap-2">
+    <div className="container mx-auto p-12 flex flex-col gap-2">
       <h1 className="text-4xl font-bold">{hello}</h1>
       <input
         value={name}
