@@ -1,6 +1,7 @@
 import { trpc } from '../utils/trpc'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useState } from 'react'
+import DeleteButton from './DeleteButton'
 
 export default function Hello() {
   const [name, setName] = useState('')
@@ -28,9 +29,12 @@ export default function Hello() {
       <button ref={animate} onClick={handleCreate} disabled={isMutating} className="rounded-md transition-colors bg-blue-200/20 hover:bg-blue-200/40 border py-2">
         {isMutating ? <span>Creating...</span> : <span>Create User</span>}
       </button>
-      <ul ref={animate}>
+      <ul ref={animate} className="flex flex-col gap-2">
           {data?.map((user) => (
-          <li key={user.id}>{user.name}</li>
+          <li key={user.id} className="flex justify-between">
+            <span>{user.name}</span>
+            <DeleteButton id={user.id} mutate={mutate} />
+          </li>
           ))}
       </ul>
     </div>
