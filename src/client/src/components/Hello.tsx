@@ -2,6 +2,7 @@ import { trpc } from '../utils/trpc'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useState } from 'react'
 import DeleteButton from './DeleteButton'
+import EditableSpan from './EditableSpan'
 
 export default function Hello() {
   const [name, setName] = useState('')
@@ -33,7 +34,7 @@ export default function Hello() {
       <ul ref={animate} className="flex flex-col gap-2">
           {data?.map((user) => (
           <li key={user.id} className="flex justify-between">
-            <span>{user.name}</span>
+            <EditableSpan user={user} mutate={mutate} />
             <DeleteButton id={user.id} mutate={mutate} />
           </li>
           ))}
