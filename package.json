@@ -3,14 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "rimraf dist && tsc",
-    "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist",
-    "pre-commit": [
-      "ts.check",
-      "build",
-      "add-build"
-    ],
+    "build": "tsc",
     "dev:server": "tsx watch src/server",
     "dev:client": "cd src/client && npm run dev",
     "dev": "run-p dev:* --print-label",
