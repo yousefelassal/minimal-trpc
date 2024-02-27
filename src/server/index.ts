@@ -30,6 +30,10 @@ async function main() {
     res.send('hello from api!');
   });
 
+  app.get('/version', (_req, res) => {
+    res.send('0.0.1');
+  });
+
   app.listen(3000, () => {
     console.log('Listening on http://localhost:3000');
   });
