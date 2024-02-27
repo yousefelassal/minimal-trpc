@@ -20,11 +20,6 @@ export default function Hello() {
   return (
     <div className="container p-12 flex flex-col gap-2">
       <h1 className="text-4xl font-bold">{hello}</h1>
-      <ul ref={animate}>
-          {data?.map((user) => (
-          <li key={user.id}>{user.name}</li>
-          ))}
-      </ul>
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -33,6 +28,11 @@ export default function Hello() {
       <button ref={animate} onClick={handleCreate} disabled={isMutating} className="rounded-md transition-colors bg-blue-200/20 hover:bg-blue-200/40 border py-2">
         {isMutating ? <span>Creating...</span> : <span>Create User</span>}
       </button>
+      <ul ref={animate}>
+          {data?.map((user) => (
+          <li key={user.id}>{user.name}</li>
+          ))}
+      </ul>
     </div>
   )
 }
