@@ -13,4 +13,7 @@ export const userRouter = router({
     delete: publicProcedure
       .input(z.object({id: z.number()}))
       .mutation(({ input }) => db.user.delete({ where: { id: input.id } })),
+    update: publicProcedure
+      .input(z.object({id: z.number(), name: z.string()}))
+      .mutation(({ input }) => db.user.update({ where: { id: input.id }, data: { name: input.name } })),
 });
